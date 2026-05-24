@@ -80,6 +80,7 @@
       gap: 1rem;
       padding: 1rem;
       border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      position: relative;
     }
 
     .back-hub-btn {
@@ -276,8 +277,8 @@
 <div id="portfolioApp" class="glass-panel private-hub">
   <div class="portfolio-header">
     <button type="button" class="back-hub-btn" id="backHubBtn"><i class="fas fa-arrow-left"></i> Back</button>
-    <h2 style="color: #ffffff; font-size: 1.05rem; font-weight: 700;"><i class="fas fa-briefcase"></i> My Portfolio</h2>
-  </div>
+    <h2 style="color: #ffffff; font-size: 1.05rem; font-weight: 700; padding-left: 0.2rem;"><i class="fas fa-briefcase"></i> Portfolio</h2>
+    </div>
   
   <div class="portfolio-tabs">
     <button type="button" class="tab-trigger active" data-filter="motion">MOTION DESIGN</button>
@@ -327,12 +328,16 @@
       { type: 'music', trackName: 'Track 14: BLOW THE ROOF', audioSrc: '/music tracks/Blow the roof.mp3' },
       { type: 'music', trackName: 'Track 15: RECKLESS', audioSrc: '/music tracks/RECKLESS.mp3' }
     ];
-    backHubBtn.addEventListener('click', () => {
+
+    function returnToDashboard() {
       if (videoIntersectionObserver) {
         videoIntersectionObserver.disconnect();
       }
+      // Ibabalik na lang palagi sa index.html nang walang bypass, rekta login template
       window.location.href = 'index.html';
-    });
+    }
+
+    backHubBtn.addEventListener('click', returnToDashboard);
 
     document.querySelectorAll('.tab-trigger').forEach(tab => {
       tab.addEventListener('click', (e) => {
@@ -373,7 +378,6 @@
       portfolioFeedContainer.innerHTML = '';
       let cardCounter = 1;
 
-      // Mag-inject ng Copyright Warning kapag pinili ang music tab
       if (filterStyle === 'music') {
         const warningDiv = document.createElement('div');
         warningDiv.className = 'music-warning-box';
@@ -388,7 +392,6 @@
         card.className = 'preview-card';
         
         if (filterStyle === 'music') {
-          // Audio Interface na may proteksyon sa download at playback speed rate
           card.innerHTML = `
             <div class="audio-wrapper">
               <div class="audio-info">
@@ -402,7 +405,6 @@
             </div>
           `;
         } else {
-          // Video Interface para sa Motion at Edits
           card.innerHTML = `
             <div class="card-title">Preview ${cardCounter}</div>
             <div class="video-wrapper">
@@ -442,7 +444,6 @@
       }
     }
 
-    // Default load on start
     buildPortfolioFeed('motion');
   })();
 </script>

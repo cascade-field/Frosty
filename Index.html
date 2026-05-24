@@ -671,12 +671,12 @@
     });
 
     function buildCategories(){
+      // Tinanggal na rito ang portfolio id para sa security ng owner dashboard
       const categoriesList = [
         { id: 'presets', label: 'PRESETS', icon: 'fa-sliders', sub: 'motion pack' },
         { id: 'links', label: 'LINKS', icon: 'fa-link', sub: 'resources' },
         { id: 'prompts', label: 'PROMPTS', icon: 'fa-comment-dots', sub: 'AI tools' },
         { id: 'otherweb', label: 'OTHER WEB', icon: 'fa-globe', sub: 'external' },
-        { id: 'portfolio', label: 'MY PORTFOLIO', icon: 'fa-briefcase', sub: 'client preview' },
         { id: 'research', label: 'RESEARCH', icon: 'fa-microscope', sub: 'study prompts' }
       ];
       
@@ -688,11 +688,7 @@
         tile.className = `category-tile`;
         
         tile.addEventListener('click', () => {
-          if (cat.id === 'portfolio') {
-            window.location.href = 'portfolio.html';
-          } else {
-            openModal(cat.id);
-          }
+          openModal(cat.id);
         });
 
         tile.innerHTML = `
