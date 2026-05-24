@@ -1,0 +1,24 @@
+Mode: Photorealistic Enhancement & Professional Recontextualization
+
+Core Directive: Act as a world-renowned fine-art photographer and digital restoration expert. Analyze the uploaded source image—extracting the core subject, composition, and emotional intent—while completely disregarding all technical flaws present in the original. These flaws include, but are not limited to: low resolution, digital noise, compression artifacts, motion blur, poor white balance, lens distortion, and suboptimal lighting. Your objective is to reconstruct this image as a gallery-grade photograph that exemplifies the pinnacle of professional photography.
+
+Technical Specifications:
+
+· Resolution & Sharpness: Render with the equivalent of a medium format digital back (e.g., Phase One IQ4 150MP). Achieve critical sharpness on the primary focal point with a buttery-smooth bokeh in the background. Micro-contrast should be enhanced to reveal subtle textures without introducing digital harshness. The final output must be suitable for large-scale print (40x50 inches) at 300 DPI.
+· Dynamic Range & Exposure: Employ HDR-like dynamic range captured in a single, natural-looking exposure. Preserve every detail in the deepest shadows without crushing blacks, and retain full texture in the brightest highlights without clipping. The exposure should follow the Zone System, with a perfectly calibrated middle gray anchoring the scene.
+· Color Science: Utilize the color science of high-end cinema cameras (e.g., ARRI Alexa 65). White balance must be surgically corrected to neutral or to a tasteful, intentional artistic temperature (e.g., a subtle teal in the shadows for depth, or warm golden skin tones). Color grading should evoke the depth and richness of a Kodak Portra 400 film stock for portraits, or the clinical accuracy of a technical camera for architecture/product shots.
+· Optics & Depth of Field: Simulate the optical characteristics of a flagship prime lens (e.g., a Zeiss Otus 85mm f/1.4 or a Leica Noctilux-M 50mm f/0.95). The depth of field must be shallow and optically accurate, with bokeh that is creamy, free of onion-ringing, and exhibits a natural cat-eye effect towards the edges of the frame. Chromatic aberration must be zero.
+
+Artistic & Professional Direction:
+
+· Lighting: Scrutinize the existing lighting in the uploaded image. If it is flat or flawed, completely re-imagine it using the principles of a master lighting technician. The final lighting must fall into one of the following high-end categories, chosen to best suit the subject:
+  · For Portraits: Rembrandt lighting with a perfectly defined triangle highlight on the cheek, or soft, enveloping butterfly lighting using a large parabolic umbrella with a diffusion sock to create a subtle catchlight in the eyes at the 10 or 2 o'clock position.
+  · For Products/Still Life: Precise, commercial-grade gradient lighting that accentuates form and materiality, using negative fill to create controlled, sharp specular highlights.
+  · For Environments: Golden hour illumination with volumetric light rays (God rays) that add a sense of narrative and grandeur, or overcast, soft-box lighting that evenly distributes detail across a landscape or architectural facade.
+· Composition & Framing: Re-evaluate the composition using the Golden Ratio, the Rule of Thirds, and leading lines. Crop the image to a standard professional aspect ratio (e.g., 3:2, 4:5, or 1:1) to maximize visual impact. Ensure there is appropriate "negative space" around the subject to give it room to breathe, unless the original intent was an intimate, tightly-cropped framing.
+· Texture & Detail: Apply intelligent, frequency-separated sharpening. Skin should retain its natural micro-texture (pores, fine hairs) and be finished with a realistic, non-waxy complexion using a subtle "frequency separation" technique. Fabrics should show weave patterns. Metals should show realistic specularity and oxidation. Do not over-smooth or plasticize any element.
+
+Final Output Aesthetic: The final image should possess the intangible quality of a "God-tier" photograph: a sense of timelessness, technical perfection, and emotional resonance. It should look as though it was captured by a photographer who commands a day rate of $20,000+ for a single campaign. The image must not look "AI-generated"; it must look like the definitive, platonic ideal of what the original image was trying to be.
+
+Negative Prompt / Prohibited Elements: (If your tool allows)
+No AI-generated artifacts, no waxy or plastic skin, no distorted anatomy, no mismatched lighting directions, no chromatic aberration, no excessive vignetting, no watermarks, no oversaturation, no haloing around edges, no digital sharpening artifacts, no flat lighting, no crooked horizons, no cluttered backgrounds, no lens flare that obscures the subject, no incoherent textures.

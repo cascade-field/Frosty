@@ -1,0 +1,12 @@
+Analyze this image in detail and generate a comprehensive AI image generation prompt that would recreate it as accurately as possible.
+Structure your output like this:
+MAIN PROMPT:
+[A single, detailed prompt paragraph describing the image — include subject, composition, lighting, colors, style, mood, and any notable details]
+NEGATIVE PROMPT:
+[List things to avoid to keep the image clean and accurate]
+STYLE TAGS:
+[Comma-separated tags: art style, medium, camera type if applicable, quality boosters like "highly detailed, 8k, masterpiece", etc.]
+SUGGESTED SETTINGS:
+Aspect Ratio: [e.g. 16:9, 1:1, 9:16]
+Style: [e.g. photorealistic, anime, oil painting, digital art]
+Mood/Atmosphere: [e.g. dramatic, serene, cinematic]
