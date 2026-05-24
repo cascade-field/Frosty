@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Gnokz Info</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-dark: #050a15;
+      --panel-bg: rgba(10, 18, 36, 0.6);
+      --border-glow: rgba(168, 85, 247, 0.4);
+      --glass-border: rgba(255, 255, 255, 0.12);
+      --primary-gradient: linear-gradient(135deg, #6366f1, #a855f7);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at 50% 50%, #0d1527, var(--bg-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .bg-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: 0;
+      opacity: 0.4;
+      pointer-events: none;
+    }
+    .orb-1 {
+      width: 260px;
+      height: 260px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.3), transparent 70%);
+      top: 20%;
+      left: 15%;
+    }
+    .orb-2 {
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.25), transparent 70%);
+      bottom: 20%;
+      right: 15%;
+    }
+
+    .glass-panel {
+      background: var(--panel-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), 
+                  inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      border-radius: 1.25rem;
+      z-index: 10;
+      width: 100%;
+    }
+
+    /* LOGIN CARD */
+    .login-card {
+      max-width: 350px;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .login-card h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .sub-message {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.8rem;
+      margin-bottom: 1.5rem;
+      border-left: 2px solid #a855f7;
+      padding-left: 8px;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 0.9rem;
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 0.6rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.25s;
+    }
+
+    .input-group:focus-within {
+      border-color: #a855f7;
+      background: rgba(255, 255, 255, 0.06);
+      box-shadow: 0 0 10px rgba(168, 85, 247, 0.2);
+    }
+
+    .input-group i:first-child {
+      padding-left: 1rem;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .input-group input {
+      background: transparent;
+      border: none;
+      padding: 0.75rem;
+      width: 100%;
+      font-size: 0.9rem;
+      color: #ffffff;
+      outline: none;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 1rem;
+      cursor: pointer;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .continue-btn {
+      width: 100%;
+      background: var(--primary-gradient);
+      border: none;
+      padding: 0.8rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: 0.6rem;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      margin-top: 0.25rem;
+    }
+
+    .error-message {
+      margin-top: 0.75rem;
+      font-size: 0.75rem;
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      padding: 0.6rem;
+      border-radius: 0.5rem;
+      text-align: center;
+      color: #fca5a5;
+    }
+
+    .demo-hint {
+      margin-top: 1.25rem;
+      text-align: center;
+      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    /* PRIVATE DASHBOARD & VIEWPORTS */
+    .private-hub {
+      max-width: 420px;
+      display: none;
+      z-index: 10;
+    }
+
+    .glass-navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .logo-gnoks h2 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .user-area {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .user-name {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.8rem;
+    }
+
+    .logout-btn {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      padding: 0.3rem 0.65rem;
+      border-radius: 0.4rem;
+      color: #fca5a5;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+
+    .gnoks-header {
+      padding: 1.25rem 1rem 0.4rem 1rem;
+    }
+
+    .gnoks-header h1 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .details-section {
+      padding: 0 1rem 1rem 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .details-section h3 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    .info-description {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.75);
+      margin-top: 0.2rem;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.65rem;
+      padding: 1rem;
+    }
+
+    .category-tile {
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 0.75rem;
+      padding: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.4rem;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      cursor: pointer;
+    }
+
+    .tile-icon {
+      width: 30px;
+      height: 30px;
+      background: rgba(168, 85, 247, 0.12);
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      color: #c084fc;
+    }
+
+    .tile-text {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #ffffff;
+    }
+
+    .tile-sub {
+      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    .private-footer {
+      padding: 0.85rem;
+      background: rgba(0, 0, 0, 0.15);
+      text-align: center;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.35);
+      border-bottom-left-radius: 1.25rem;
+      border-bottom-right-radius: 1.25rem;
+    }
+
+    /* FULLSCREEN PORTFOLIO STYLES */
+    .portfolio-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .back-hub-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      padding: 0.4rem 0.8rem;
+      border-radius: 0.5rem;
+      font-size: 0.75rem;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .portfolio-tabs {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.8rem 1rem;
+      overflow-x: auto;
+    }
+
+    .tab-trigger {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.5);
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .tab-trigger.active {
+      background: var(--primary-gradient);
+      color: #ffffff;
+      border-color: transparent;
+    }
+
+    .portfolio-feed {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      padding: 1rem;
+      max-height: 62vh;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
+
+    /* VIDEO PREVIEW CARD COMPONENT */
+    .preview-card {
+      background: #020617;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 1rem;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .preview-card .card-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #ffffff;
+      margin-bottom: 0.6rem;
+    }
+
+    /* ASPECT RATIO VIDEO CONTAINER */
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: #000000;
+      border-radius: 0.6rem;
+      overflow: hidden;
+      transition: aspect-ratio 0.3s ease;
+    }
+
+    .video-wrapper.ratio-expanded {
+      aspect-ratio: auto;
+    }
+
+    .video-wrapper video {
+      width: 100%;
+      display: block;
+    }
+
+    .video-wrapper:not(.ratio-expanded) video {
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .expand-toggle-btn {
+      position: absolute;
+      top: 0.6rem;
+      right: 0.6rem;
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      border-radius: 0.4rem;
+      padding: 0.3rem 0.5rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      cursor: pointer;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      backdrop-filter: blur(4px);
+    }
+
+    /* MODAL OVERLAY */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 7, 18, 0.75);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-container {
+      max-width: 380px;
+      transform: scale(0.92);
+      transition: transform 0.25s ease;
+    }
+
+    .modal-overlay.active .modal-container {
+      transform: scale(1);
+    }
+
+    .modal-header {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h3 {
+      font-size: 1rem;
+      color: #ffffff;
+    }
+
+    .close-modal {
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .cards-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 1rem;
+      max-height: 50vh;
+      overflow-y: auto;
+    }
+
+    .card-wrapper {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .option-card {
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 0.6rem;
+      padding: 0.7rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .card-main-info {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card-icon {
+      font-size: 0.9rem;
+      color: #c084fc;
+    }
+
+    .card-title {
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: #ffffff;
+    }
+
+    .card-desc {
+      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .card-action {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 0.3rem 0.66rem;
+      border-radius: 0.4rem;
+      color: #ffffff;
+      font-weight: 500;
+      font-size: 0.7rem;
+      cursor: pointer;
+    }
+
+    .sub-versions-container {
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.4rem 0 0.4rem 1rem;
+      border-left: 2px solid rgba(168, 85, 247, 0.3);
+      margin-top: 0.3rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .toggle-arrow {
+      transition: transform 0.2s ease;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .toast-alert {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translate(-50%, 10px);
+      background: rgba(10, 15, 30, 0.9);
+      border: 1px solid var(--border-glow);
+      padding: 0.5rem 1.25rem;
+      border-radius: 1.5rem;
+      color: #ffffff;
+      font-size: 0.75rem;
+      z-index: 2000;
+      opacity: 0;
+      transition: all 0.22s ease;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .toast-alert.show {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-orb orb-1"></div>
+<div class="bg-orb orb-2"></div>
+
+<form id="loginForm" class="glass-panel login-card">
+  <h2><i class="fas fa-fingerprint"></i> Fill out to access</h2>
+  <div class="sub-message">Fill credentials to unlock private hub</div>
+  
+  <div class="input-group">
+    <i class="fas fa-user-astronaut"></i>
+    <input type="text" id="usernameInput" placeholder="Username" required autocomplete="username">
+  </div>
+  
+  <div class="input-group">
+    <i class="fas fa-lock"></i>
+    <input type="password" id="passwordInput" placeholder="Password" required autocomplete="current-password">
+    <i class="fas fa-eye-slash toggle-password" id="togglePassIcon"></i>
+  </div>
+  
+  <button type="submit" class="continue-btn">
+    <span>Unlock private web</span> 
+    <i class="fas fa-arrow-right-to-bracket"></i>
+  </button>
+  
+  <div id="errorMsg" class="error-message" style="display: none;"></div>
+  <div class="demo-hint"><i class="fas fa-shield"></i> Reymark Delagao Vault Gateway</div>
+</form>
+
+<div id="mainApp" class="glass-panel private-hub">
+  <div class="glass-navbar">
+    <div class="logo-gnoks"><h2><i class="fas fa-gem"></i> Gnoks · Informations </h2></div>
+    <div class="user-area">
+      <span class="user-name"><span id="displayUsername">Gnokz</span></span>
+      <button type="button" class="logout-btn" id="logoutBtn">Lock</button>
+    </div>
+  </div>
+
+  <div class="gnoks-header">
+    <h1>Gnoks</h1>
+  </div>
+  
+  <div class="details-section">
+    <h3>Details</h3>
+    <div class="info-description"><i class="fas fa-database"></i> All important info ko ay nandito</div>
+  </div>
+
+  <div class="category-grid" id="categoryGrid"></div>
+  
+  <div class="private-footer">
+    <p><i class="fas fa-crown"></i> Private Web - Owner access only</p>
+  </div>
+</div>
+
+<div id="portfolioApp" class="glass-panel private-hub">
+  <div class="portfolio-header">
+    <button type="button" class="back-hub-btn" id="backHubBtn"><i class="fas fa-arrow-left"></i> Back</button>
+    <h2 style="color: #ffffff; font-size: 1.05rem; font-weight: 700;"><i class="fas fa-briefcase"></i> My Portfolio</h2>
+  </div>
+  
+  <div class="portfolio-tabs">
+    <button type="button" class="tab-trigger active" data-filter="motion">MOTION DESIGN</button>
+    <button type="button" class="tab-trigger" data-filter="edits">MULTI-STYLE EDITS</button>
+  </div>
+
+  <div class="portfolio-feed" id="portfolioFeedContainer"></div>
+
+  <div class="private-footer">
+    <p><i class="fas fa-star"></i> Curated Works & Showcases</p>
+  </div>
+</div>
+
+<div id="modalOverlay" class="modal-overlay">
+  <div class="glass-panel modal-container">
+    <div class="modal-header">
+      <h3 id="modalTitle">Category</h3>
+      <button type="button" class="close-modal" id="closeModalBtn"><i class="fas fa-times"></i></button>
+    </div>
+    <div id="modalCardsContainer" class="cards-grid"></div>
+  </div>
+</div>
+
+<div id="toastAlert" class="toast-alert"></div>
+
+<script>
+  (function(){
+    const loginForm = document.getElementById('loginForm');
+    const mainApp = document.getElementById('mainApp');
+    const portfolioApp = document.getElementById('portfolioApp');
+    const portfolioFeedContainer = document.getElementById('portfolioFeedContainer');
+    const backHubBtn = document.getElementById('backHubBtn');
+    
+    const usernameField = document.getElementById('usernameInput');
+    const passwordField = document.getElementById('passwordInput');
+    const errorMsgDiv = document.getElementById('errorMsg');
+    const togglePass = document.getElementById('togglePassIcon');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const displayUsernameSpan = document.getElementById('displayUsername');
+
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalCardsContainer = document.getElementById('modalCardsContainer');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const toastAlert = document.getElementById('toastAlert');
+
+    let videoIntersectionObserver = null;
+
+    const categoriesData = {
+      presets: {
+        name: 'Alight Motion Presets', icon: 'fa-sliders',
+        cards: [
+          { title: 'All Layer Effects', desc: '9:16 • Jedug Jedug', actionLabel: 'GET', icon: 'fa-layer-group', url: 'https://drive.google.com/file/d/1SiXYq9_Ep_q1SaGDE3YJLen-ejYUuEgr/view?usp=drivesdk' },
+          { 
+            title: 'Text Animation', 
+            desc: 'Tap to view 3 versions', 
+            icon: 'fa-font',
+            versions: [
+              { title: 'TA Version 1', desc: 'Kinetic slide text animation', url: 'https://drive.google.com/file/d/1AC29gQU4Lob5MXc6bk3P_SruQdjOvcjg/view?usp=drivesdk' },
+              { title: 'TA Version 2', desc: 'Smooth fade glow text layout', url: 'https://drive.google.com/file/d/1FpEjNUBEWxHbu9CQ4kDq7WzeDohql028/view?usp=drivesdk' },
+              { title: 'TA Version 3', desc: 'Premium bounce and blur effect', url: 'https://drive.google.com/file/d/14dEXCzw7cD1PRk1Ynr5-N5Z18RrDkwiZ/view?usp=drivesdk' }
+            ]
+          },
+          { title: 'Simple Shake Effects', desc: 'Clean standard motion shakes', actionLabel: 'GET', icon: 'fa-wave-square', url: 'https://drive.google.com/file/d/1_8FC6H_ibw8iFcAc3Y0WajOQs1kTq5f7/view?usp=drivesdk' },
+          { title: 'Advance Shake Effects', desc: 'Heavy cinematic shake nodes', actionLabel: 'GET', icon: 'fa-burst', url: 'https://drive.google.com/file/d/1o28oR1Z0K6iOihXJKxBMQi2q5oOkOKah/view?usp=drivesdk' },
+          { title: 'Random Effects', desc: 'Assorted custom layout filters', actionLabel: 'GET', icon: 'fa-shuffle', url: 'https://drive.google.com/file/d/1Fqn-rurtS-q25sYkHzcnU4wLdM--Ti8y/view?usp=drivesdk' },
+          { title: 'Aura Effects', desc: 'Vibrant edge glowing design layers', actionLabel: 'GET', icon: 'fa-sun', url: 'https://drive.google.com/file/d/1m8DWzTU-cQTJ3V_N-7ozu63iX3oYjLdE/view?usp=drivesdk' },
+          { title: 'Preset Packs', desc: 'Complete premium asset packages', actionLabel: 'GET', icon: 'fa-box-open', url: 'https://drive.google.com/file/d/193aqwFE9K4Am4QSczbZ6zZo4PUdh39GT/view?usp=drivesdk' },
+          { title: 'Slide Packs', desc: 'Seamless directional sliding tiles', actionLabel: 'GET', icon: 'fa-arrows-left-right', url: 'https://drive.google.com/file/d/1C12f02oHWlq1mCPgml-kdLkV8mBS9ua4/view?usp=drivesdk' },
+          { title: 'Watermark', desc: 'Signature brand safety configurations', actionLabel: 'GET', icon: 'fa-copyright', url: 'https://drive.google.com/file/d/1EAXN-VA2Y8bJNCskdS4LdYQO8TYybCWK/view?usp=drivesdk' },
+          { 
+            title: 'Color Correction Effects', 
+            desc: 'Tap to view 2 versions', 
+            icon: 'fa-droplet',
+            versions: [
+              { title: 'CC Version 1', desc: 'Cinematic grading profile 1', url: 'https://drive.google.com/file/d/1Dgox4tG2Vu81sPsJPviBxLmu6ztA8dVL/view?usp=drivesdk' },
+              { title: 'CC Version 2', desc: 'Vibrant grading profile 2', url: 'https://drive.google.com/file/d/1Nrxu2EC5Edt8TzKDs-PrcwjMDx6WCVfB/view?usp=drivesdk' }
+            ]
+          },
+          { title: 'Outro', desc: 'End of edits', actionLabel: 'GET', icon: 'fa-clapperboard', url: 'ILAGAY_ANG_DIRECT_LINK_DITO_3' },
+          { title: 'Transation', desc: 'Smooth transitions', actionLabel: 'GET', icon: 'fa-shuffle', url: 'ILAGAY_ANG_DIRECT_LINK_DITO_4' },
+          { title: 'AE like', desc: 'Premium Vibe', actionLabel: 'GET', icon: 'fa-wand-magic-sparkles', url: 'ILAGAY_ANG_DIRECT_LINK_DITO_5' }
+        ]
+      },
+      links: {
+        name: 'LINKS', icon: 'fa-link',
+        cards: [
+          { title: 'Design Lib', desc: 'Curated UI tools', actionLabel: 'Go', icon: 'fa-palette' },
+          { title: 'Motion Lab', desc: 'AE templates', actionLabel: 'Go', icon: 'fa-play' },
+          { title: 'Code Pack', desc: 'GSAP utils', actionLabel: 'Copy', icon: 'fa-code' },
+          { title: 'Fonts', desc: 'Typography', actionLabel: 'View', icon: 'fa-font' },
+          { title: '3D Assets', desc: 'Glass 3d kits', actionLabel: 'Get', icon: 'fa-cube' }
+        ]
+      },
+      prompts: {
+        name: 'PROMPTS', icon: 'fa-comment-dots',
+        cards: [
+          { title: 'Enhance Anime', desc: 'Anime style detailing framework', actionLabel: 'Use', icon: 'fa-wand-magic-sparkles', filePath: '/Prompts Txt Docs/Enhance Anime.txt' },
+          { title: 'Enhance Realistic', desc: 'Hyper-realistic engine adjustment', actionLabel: 'Use', icon: 'fa-camera', filePath: '/Prompts Txt Docs/Enhance Realistic.txt' },
+          { title: 'Turn to mangga', desc: 'Manga and comic-style art translation', actionLabel: 'Use', icon: 'fa-book-open', filePath: '/Prompts Txt Docs/Turn to mangga.txt' },
+          { title: 'Analyze & Clone', desc: 'Structure decoding and cloning', actionLabel: 'Use', icon: 'fa-clone', filePath: '/Prompts Txt Docs/Analyze & Clone.txt' },
+          { title: 'Glowing Poster', desc: 'Vibrant neon and cinematic lighting', actionLabel: 'Use', icon: 'fa-bolt', filePath: '/Prompts Txt Docs/Glowing Poster.txt' },
+          { title: 'Reverse Engineering', desc: 'Reverse image formatting & parameters', actionLabel: 'Use', icon: 'fa-gears', filePath: '/Prompts Txt Docs/Reverse Engineering.txt' },
+          { title: 'RE - UI•UX', desc: 'Ultra quality glassmorphism & layouts', actionLabel: 'Use', icon: 'fa-bezier-curve', filePath: '/Prompts Txt Docs/RE - UI•UX.txt' }
+        ]
+      },
+      otherweb: {
+        name: 'OTHER WEB', icon: 'fa-globe',
+        cards: [
+          { title: 'Cloud Vault', desc: 'Secure drive', actionLabel: 'Open', icon: 'fa-cloud' },
+          { title: 'Creator Hub', desc: 'Portfolio site', actionLabel: 'Open', icon: 'fa-star' },
+          { title: 'UI Kit', desc: 'Glass layout components', actionLabel: 'Get', icon: 'fa-paintbrush' },
+          { title: 'Analytics', desc: 'Performance logs', actionLabel: 'View', icon: 'fa-chart-simple' },
+          { title: 'Inspiration', desc: 'Daily feeds', actionLabel: 'Open', icon: 'fa-lightbulb' }
+        ]
+      },
+      research: {
+        name: 'RESEARCH', icon: 'fa-microscope',
+        cards: [
+          { title: 'Historical Theory & Pioneer Profile', desc: 'Pioneer Breakthrough Analysis', actionLabel: 'USE', icon: 'fa-book', filePath: '/Research Txt Doc/Uno.txt' },
+          { title: 'Holistic Research & Concept Framework', desc: 'Comprehensive Concept Analysis', actionLabel: 'USE', icon: 'fa-chart-pie', filePath: '/Research Txt Doc/Doha.txt' },
+          { title: 'Localized Masterclass Blueprint', desc: 'Comprehensive Tagalog Guide', actionLabel: 'USE', icon: 'fa-network-wired', filePath: '/Research Txt Doc/Tolo.txt' }
+        ]
+      }
+    };
+
+    const portfolioRepo = [
+      { type: 'motion', videoSrc: '' },
+      { type: 'motion', videoSrc: '' },
+      { type: 'motion', videoSrc: '' },
+      { type: 'motion', videoSrc: '' },
+      { type: 'motion', videoSrc: '' },
+      { type: 'edits', videoSrc: 'https://res.cloudinary.com/dafz8wnkh/video/upload/New_Project_30_7D03535_p8dyo6.mp4' },
+      { type: 'edits', videoSrc: '' },
+      { type: 'edits', videoSrc: '' },
+      { type: 'edits', videoSrc: '' },
+      { type: 'edits', videoSrc: '' }
+    ];
+
+    function showToast(msg) {
+      toastAlert.innerText = msg;
+      toastAlert.classList.add('show');
+      setTimeout(() => toastAlert.classList.remove('show'), 1800);
+    }
+
+    async function sha256(message) {
+      const msgBuffer = new TextEncoder().encode(message);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const user = usernameField.value.trim();
+      const pass = passwordField.value;
+      const hashedInput = await sha256(pass);
+
+      if(user === 'Gnokz' && hashedInput === '4e43018e9d9c90ee405008cb83cd63f3efd6d6c8c6f06121a80bff5a2b4069bd'){
+        errorMsgDiv.style.display = 'none';
+        displayUsernameSpan.innerText = user;
+        loginForm.style.display = 'none';
+        mainApp.style.display = 'block';
+        usernameField.value = '';
+        passwordField.value = '';
+      } else {
+        errorMsgDiv.innerHTML = `<i class="fas fa-circle-exclamation"></i> Invalid Owner Credentials`;
+        errorMsgDiv.style.display = 'block';
+      }
+    });
+
+    logoutBtn.addEventListener('click', () => {
+      mainApp.style.display = 'none';
+      loginForm.style.display = 'flex';
+    });
+
+    backHubBtn.addEventListener('click', () => {
+      if (videoIntersectionObserver) {
+        videoIntersectionObserver.disconnect();
+      }
+      portfolioApp.style.display = 'none';
+      mainApp.style.display = 'block';
+    });
+
+    document.querySelectorAll('.tab-trigger').forEach(tab => {
+      tab.addEventListener('click', (e) => {
+        document.querySelectorAll('.tab-trigger').forEach(t => t.classList.remove('active'));
+        e.target.classList.add('active');
+        buildPortfolioFeed(e.target.getAttribute('data-filter'));
+      });
+    });
+
+    function initVideoAutoplayObserver() {
+      if (videoIntersectionObserver) {
+        videoIntersectionObserver.disconnect();
+      }
+
+      const observerOptions = {
+        root: portfolioFeedContainer,
+        threshold: 0.6
+      };
+
+      videoIntersectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const video = entry.target;
+          if (entry.isIntersecting) {
+            if (video.src) {
+              video.play().catch(() => {});
+            }
+          } else {
+            video.pause();
+          }
+        });
+      }, observerOptions);
+
+      const videos = portfolioFeedContainer.querySelectorAll('video');
+      videos.forEach(v => videoIntersectionObserver.observe(v));
+    }
+
+    function buildPortfolioFeed(filterStyle) {
+      portfolioFeedContainer.innerHTML = '';
+      let cardCounter = 1;
+
+      portfolioRepo.forEach(project => {
+        if (project.type !== filterStyle) return;
+
+        const card = document.createElement('div');
+        card.className = 'preview-card';
+        
+        // REMOVED 'muted' ATTRIBUTE FOR UNMUTED AUDIO PLAYBACK
+        card.innerHTML = `
+          <div class="card-title">Preview ${cardCounter}</div>
+          <div class="video-wrapper">
+            <button type="button" class="expand-toggle-btn">
+              <i class="fas fa-expand"></i> <span>Expand Ratio</span>
+            </button>
+            <video loop playsinline src="${project.videoSrc}"></video>
+          </div>
+        `;
+
+        const videoWrapper = card.querySelector('.video-wrapper');
+        const expandBtn = card.querySelector('.expand-toggle-btn');
+        const expandIcon = expandBtn.querySelector('i');
+        const expandText = expandBtn.querySelector('span');
+
+        expandBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const isExpanded = videoWrapper.classList.toggle('ratio-expanded');
+          if (isExpanded) {
+            expandIcon.className = 'fas fa-compress';
+            expandText.innerText = 'Close Ratio';
+          } else {
+            expandIcon.className = 'fas fa-expand';
+            expandText.innerText = 'Expand Ratio';
+          }
+        });
+
+        portfolioFeedContainer.appendChild(card);
+        cardCounter++;
+      });
+
+      initVideoAutoplayObserver();
+    }
+
+    function buildCategories(){
+      const categoriesList = [
+        { id: 'presets', label: 'PRESETS', icon: 'fa-sliders', sub: 'motion pack' },
+        { id: 'links', label: 'LINKS', icon: 'fa-link', sub: 'resources' },
+        { id: 'prompts', label: 'PROMPTS', icon: 'fa-comment-dots', sub: 'AI tools' },
+        { id: 'otherweb', label: 'OTHER WEB', icon: 'fa-globe', sub: 'external' },
+        { id: 'portfolio', label: 'MY PORTFOLIO', icon: 'fa-briefcase', sub: 'client preview' },
+        { id: 'research', label: 'RESEARCH', icon: 'fa-microscope', sub: 'study prompts' }
+      ];
+      
+      const grid = document.getElementById('categoryGrid');
+      grid.innerHTML = '';
+      
+      categoriesList.forEach(cat => {
+        const tile = document.createElement('div');
+        tile.className = `category-tile`;
+        
+        tile.addEventListener('click', () => {
+          if (cat.id === 'portfolio') {
+            mainApp.style.display = 'none';
+            portfolioApp.style.display = 'block';
+            document.querySelectorAll('.tab-trigger').forEach(t => t.classList.remove('active'));
+            const initialTab = document.querySelector('.tab-trigger[data-filter="motion"]');
+            if (initialTab) initialTab.classList.add('active');
+            buildPortfolioFeed('motion');
+          } else {
+            openModal(cat.id);
+          }
+        });
+
+        tile.innerHTML = `
+          <div class="tile-icon"><i class="fas ${cat.icon}"></i></div>
+          <div>
+            <div class="tile-text">${cat.label}</div>
+            <div class="tile-sub">${cat.sub}</div>
+          </div>
+        `;
+        grid.appendChild(tile);
+      });
+    }
+
+    function openModal(id) {
+      const data = categoriesData[id];
+      if(!data) return;
+      modalTitle.innerHTML = `<i class="fas ${data.icon}"></i> ${data.name}`;
+      modalCardsContainer.innerHTML = '';
+      
+      data.cards.forEach(card => {
+        const cardWrapper = document.createElement('div');
+        cardWrapper.className = 'card-wrapper';
+
+        const cardEl = document.createElement('div');
+        cardEl.className = 'option-card';
+        
+        if (card.versions) {
+          cardEl.style.cursor = 'pointer';
+          cardEl.innerHTML = `
+            <div class="card-main-info">
+              <div class="card-icon"><i class="fas ${card.icon}"></i></div>
+              <div>
+                <div class="card-title">${card.title}</div>
+                <div class="card-desc">${card.desc}</div>
+              </div>
+            </div>
+            <div style="padding-right: 0.2rem;"><i class="fas fa-chevron-down toggle-arrow"></i></div>
+          `;
+
+          const subContainer = document.createElement('div');
+          subContainer.className = 'sub-versions-container';
+
+          card.versions.forEach(ver => {
+            const verEl = document.createElement('div');
+            verEl.className = 'option-card';
+            verEl.style.background = 'rgba(255, 255, 255, 0.01)';
+            verEl.innerHTML = `
+              <div class="card-main-info">
+                <div class="card-icon" style="font-size: 0.75rem; opacity: 0.7;"><i class="fas fa-circle-dot"></i></div>
+                <div>
+                  <div class="card-title" style="font-size: 0.75rem;">${ver.title}</div>
+                  <div class="card-desc" style="font-size: 0.65rem;">${ver.desc}</div>
+                </div>
+              </div>
+              <button class="card-action">GET</button>
+            `;
+
+            verEl.querySelector('.card-action').addEventListener('click', (e) => {
+              e.stopPropagation();
+              if (ver.url && !ver.url.includes('ILAGAY_ANG_DIRECT_LINK_DITO')) {
+                showToast(`Downloading: ${ver.title}...`);
+                window.open(ver.url, '_blank');
+              } else {
+                showToast(`Wala pang link ang ${ver.title}`);
+              }
+            });
+
+            subContainer.appendChild(verEl);
+          });
+
+          cardEl.addEventListener('click', () => {
+            const isHidden = subContainer.style.display !== 'flex';
+            subContainer.style.display = isHidden ? 'flex' : 'none';
+            cardEl.querySelector('.toggle-arrow').style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
+          });
+
+          cardWrapper.appendChild(cardEl);
+          cardWrapper.appendChild(subContainer);
+          modalCardsContainer.appendChild(cardWrapper);
+
+        } else {
+          cardEl.innerHTML = `
+            <div class="card-main-info">
+              <div class="card-icon"><i class="fas ${card.icon}"></i></div>
+              <div>
+                <div class="card-title">${card.title}</div>
+                <div class="card-desc">${card.desc}</div>
+              </div>
+            </div>
+            <button class="card-action">${card.actionLabel || 'GET'}</button>
+          `;
+          
+          cardEl.querySelector('.card-action').addEventListener('click', () => {
+            if (id === 'presets') {
+              if (card.url && !card.url.includes('ILAGAY_ANG_DIRECT_LINK_DITO')) {
+                showToast(`Downloading: ${card.title}...`);
+                window.open(card.url, '_blank');
+              } else {
+                showToast(`Wala pang link ang ${card.title}`);
+              }
+            } else if (id === 'research' || id === 'prompts') {
+              fetch(card.filePath)
+                .then(response => {
+                  if (!response.ok) throw new Error('File not found');
+                  return response.text();
+                })
+                .then(text => {
+                  navigator.clipboard.writeText(text).then(() => {
+                    showToast(`Copied prompt for ${card.title}!`);
+                  }).catch(() => {
+                    showToast('Failed to copy prompt.');
+                  });
+                })
+                .catch(err => {
+                  showToast(`Error: Hindi mahanap ang file.`);
+                  console.error(err);
+                });
+            } else {
+              showToast(`Triggered: ${card.title}`);
+            }
+          });
+          modalCardsContainer.appendChild(cardEl);
+        }
+      });
+      modalOverlay.classList.add('active');
+    }
+
+    closeModalBtn.addEventListener('click', () => modalOverlay.classList.remove('active'));
+    modalOverlay.addEventListener('click', (e) => { if(e.target === modalOverlay) modalOverlay.classList.remove('active'); });
+
+    togglePass.addEventListener('click', () => {
+      const isPass = passwordField.type === 'password';
+      passwordField.type = isPass ? 'text' : 'password';
+      togglePass.classList.toggle('fa-eye-slash', !isPass);
+      togglePass.classList.toggle('fa-eye', isPass);
+    });
+
+    buildCategories();
+  })();
+</script>
+</body>
+</html>
