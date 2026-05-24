@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>My Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-dark: #050a15;
+      --panel-bg: rgba(10, 18, 36, 0.6);
+      --border-glow: rgba(168, 85, 247, 0.4);
+      --glass-border: rgba(255, 255, 255, 0.12);
+      --primary-gradient: linear-gradient(135deg, #6366f1, #a855f7);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at 50% 50%, #0d1527, var(--bg-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .bg-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: 0;
+      opacity: 0.4;
+      pointer-events: none;
+    }
+    .orb-1 {
+      width: 260px;
+      height: 260px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.3), transparent 70%);
+      top: 20%;
+      left: 15%;
+    }
+    .orb-2 {
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.25), transparent 70%);
+      bottom: 20%;
+      right: 15%;
+    }
+
+    .glass-panel {
+      background: var(--panel-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), 
+                  inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      border-radius: 1.25rem;
+      z-index: 10;
+      width: 100%;
+    }
+
+    .private-hub {
+      max-width: 420px;
+      display: block;
+      z-index: 10;
+    }
+
+    .portfolio-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .back-hub-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      padding: 0.4rem 0.8rem;
+      border-radius: 0.5rem;
+      font-size: 0.75rem;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .portfolio-tabs {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.8rem 1rem;
+      overflow-x: auto;
+    }
+
+    .tab-trigger {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.5);
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .tab-trigger.active {
+      background: var(--primary-gradient);
+      color: #ffffff;
+      border-color: transparent;
+    }
+
+    .portfolio-feed {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      padding: 1rem;
+      max-height: 62vh;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
+
+    /* PREVIEW CARD COMPONENT */
+    .preview-card {
+      background: #020617;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 1rem;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .preview-card .card-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #ffffff;
+      margin-bottom: 0.6rem;
+    }
+
+    /* ASPECT RATIO VIDEO CONTAINER */
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: #000000;
+      border-radius: 0.6rem;
+      overflow: hidden;
+      transition: aspect-ratio 0.3s ease;
+    }
+
+    .video-wrapper.ratio-expanded {
+      aspect-ratio: auto;
+    }
+
+    .video-wrapper video {
+      width: 100%;
+      display: block;
+    }
+
+    .video-wrapper:not(.ratio-expanded) video {
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .expand-toggle-btn {
+      position: absolute;
+      top: 0.6rem;
+      right: 0.6rem;
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      border-radius: 0.4rem;
+      padding: 0.3rem 0.5rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      cursor: pointer;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      backdrop-filter: blur(4px);
+    }
+
+    /* AUDIO CONTAINER DESIGN */
+    .audio-wrapper {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 0.75rem;
+      padding: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .audio-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .audio-icon-box {
+      width: 38px;
+      height: 38px;
+      background: rgba(168, 85, 247, 0.15);
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #c084fc;
+      font-size: 1rem;
+    }
+
+    .audio-details {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .track-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .track-artist {
+      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    audio {
+      width: 100%;
+      height: 32px;
+      outline: none;
+      filter: invert(0.9) hue-rotate(180deg);
+    }
+
+    .private-footer {
+      padding: 0.85rem;
+      background: rgba(0, 0, 0, 0.15);
+      text-align: center;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.35);
+      border-bottom-left-radius: 1.25rem;
+      border-bottom-right-radius: 1.25rem;
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-orb orb-1"></div>
+<div class="bg-orb orb-2"></div>
+
+<div id="portfolioApp" class="glass-panel private-hub">
+  <div class="portfolio-header">
+    <button type="button" class="back-hub-btn" id="backHubBtn"><i class="fas fa-arrow-left"></i> Back</button>
+    <h2 style="color: #ffffff; font-size: 1.05rem; font-weight: 700;"><i class="fas fa-briefcase"></i> My Portfolio</h2>
+  </div>
+  
+  <div class="portfolio-tabs">
+    <button type="button" class="tab-trigger active" data-filter="motion">MOTION DESIGN</button>
+    <button type="button" class="tab-trigger" data-filter="edits">MULTI-STYLE EDITS</button>
+    <button type="button" class="tab-trigger" data-filter="music">MUSIC TRACKS</button>
+  </div>
+
+  <div class="portfolio-feed" id="portfolioFeedContainer"></div>
+
+  <div class="private-footer">
+    <p><i class="fas fa-star"></i> Curated Works & Showcases</p>
+  </div>
+</div>
+
+<script>
+  (function(){
+    const portfolioFeedContainer = document.getElementById('portfolioFeedContainer');
+    const backHubBtn = document.getElementById('backHubBtn');
+    let videoIntersectionObserver = null;
+    
+    const portfolioRepo = [
+      { type: 'motion', videoSrc: '' },
+      { type: 'motion', videoSrc: '' },
+      { type: 'motion', videoSrc: '' },
+      { type: 'motion', videoSrc: '' },
+      { type: 'motion', videoSrc: '' },
+      { type: 'edits', videoSrc: 'https://res.cloudinary.com/dafz8wnkh/video/upload/New_Project_30_7D03535_p8dyo6.mp4' },
+      { type: 'edits', videoSrc: '' },
+      { type: 'edits', videoSrc: '' },
+      { type: 'edits', videoSrc: '' },
+      { type: 'edits', videoSrc: '' },
+      
+      // 15 Music Tracks
+      { type: 'music', trackName: 'Track 1: Release Preview', audioSrc: '/Panata sa dilim.mp3' },
+      { type: 'music', trackName: 'Track 2: FL Studio Layout', audioSrc: '' },
+      { type: 'music', trackName: 'Track 3: Lo-fi Beat Ambience', audioSrc: '' },
+      { type: 'music', trackName: 'Track 4: Phonk Core Mix', audioSrc: '' },
+      { type: 'music', trackName: 'Track 5: Cinematic Soundscape', audioSrc: '' },
+      { type: 'music', trackName: 'Track 6: Trap Beat Pattern', audioSrc: '' },
+      { type: 'music', trackName: 'Track 7: Synthwave Aesthetic', audioSrc: '' },
+      { type: 'music', trackName: 'Track 8: Bass Boosted Edit', audioSrc: '' },
+      { type: 'music', trackName: 'Track 9: Chill Drift Theme', audioSrc: '' },
+      { type: 'music', trackName: 'Track 10: Dark Club Type Beat', audioSrc: '' },
+      { type: 'music', trackName: 'Track 11: Acoustic Vibe Session', audioSrc: '' },
+      { type: 'music', trackName: 'Track 12: Cyberpunk Underground', audioSrc: '' },
+      { type: 'music', trackName: 'Track 13: Hardstyle Remix Cut', audioSrc: '' },
+      { type: 'music', trackName: 'Track 14: Melodic Wave Progression', audioSrc: '' },
+      { type: 'music', trackName: 'Track 15: Outro Theme Extended', audioSrc: '' }
+    ];
+    backHubBtn.addEventListener('click', () => {
+      if (videoIntersectionObserver) {
+        videoIntersectionObserver.disconnect();
+      }
+      window.location.href = 'index.html';
+    });
+
+    document.querySelectorAll('.tab-trigger').forEach(tab => {
+      tab.addEventListener('click', (e) => {
+        document.querySelectorAll('.tab-trigger').forEach(t => t.classList.remove('active'));
+        e.target.classList.add('active');
+        buildPortfolioFeed(e.target.getAttribute('data-filter'));
+      });
+    });
+
+    function initVideoAutoplayObserver() {
+      if (videoIntersectionObserver) {
+        videoIntersectionObserver.disconnect();
+      }
+
+      const observerOptions = {
+        root: portfolioFeedContainer,
+        threshold: 0.6
+      };
+
+      videoIntersectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const video = entry.target;
+          if (entry.isIntersecting) {
+            if (video.src) {
+              video.play().catch(() => {});
+            }
+          } else {
+            video.pause();
+          }
+        });
+      }, observerOptions);
+
+      const videos = portfolioFeedContainer.querySelectorAll('video');
+      videos.forEach(v => videoIntersectionObserver.observe(v));
+    }
+
+    function buildPortfolioFeed(filterStyle) {
+      portfolioFeedContainer.innerHTML = '';
+      let cardCounter = 1;
+
+      portfolioRepo.forEach(project => {
+        if (project.type !== filterStyle) return;
+
+        const card = document.createElement('div');
+        card.className = 'preview-card';
+        
+        if (filterStyle === 'music') {
+          // Audio Interface nang walang default title sa taas
+          card.innerHTML = `
+            <div class="audio-wrapper">
+              <div class="audio-info">
+                <div class="audio-icon-box"><i class="fas fa-compact-disc fa-spin" style="animation-duration: 4s;"></i></div>
+                <div class="audio-details">
+                  <span class="track-name">${project.trackName}</span>
+                  <span class="track-artist">Produced by Reymark Delagao</span>
+                </div>
+              </div>
+              <audio controls src="${project.audioSrc}"></audio>
+            </div>
+          `;
+        } else {
+          // Video Interface para sa Motion at Edits
+          card.innerHTML = `
+            <div class="card-title">Preview ${cardCounter}</div>
+            <div class="video-wrapper">
+              <button type="button" class="expand-toggle-btn">
+                <i class="fas fa-expand"></i> <span>Expand Ratio</span>
+              </button>
+              <video loop playsinline src="${project.videoSrc}"></video>
+            </div>
+          `;
+
+          const videoWrapper = card.querySelector('.video-wrapper');
+          const expandBtn = card.querySelector('.expand-toggle-btn');
+          const expandIcon = expandBtn.querySelector('i');
+          const expandText = expandBtn.querySelector('span');
+
+          expandBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isExpanded = videoWrapper.classList.toggle('ratio-expanded');
+            if (isExpanded) {
+              expandIcon.className = 'fas fa-compress';
+              expandText.innerText = 'Close Ratio';
+            } else {
+              expandIcon.className = 'fas fa-expand';
+              expandText.innerText = 'Expand Ratio';
+            }
+          });
+        }
+
+        portfolioFeedContainer.appendChild(card);
+        cardCounter++;
+      });
+
+      if (filterStyle !== 'music') {
+        initVideoAutoplayObserver();
+      } else {
+        if (videoIntersectionObserver) videoIntersectionObserver.disconnect();
+      }
+    }
+
+    // Default load on start
+    buildPortfolioFeed('motion');
+  })();
+</script>
+</body>
+</html>

@@ -150,6 +150,28 @@
       margin-top: 0.25rem;
     }
 
+    .visitor-btn {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0.8rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: 0.6rem;
+      color: rgba(255, 255, 255, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      margin-top: 0.6rem;
+      transition: background 0.2s;
+    }
+
+    .visitor-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
     .error-message {
       margin-top: 0.75rem;
       font-size: 0.75rem;
@@ -287,125 +309,6 @@
       color: rgba(255, 255, 255, 0.35);
       border-bottom-left-radius: 1.25rem;
       border-bottom-right-radius: 1.25rem;
-    }
-
-    /* FULLSCREEN PORTFOLIO STYLES */
-    .portfolio-header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .back-hub-btn {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #ffffff;
-      padding: 0.4rem 0.8rem;
-      border-radius: 0.5rem;
-      font-size: 0.75rem;
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    .portfolio-tabs {
-      display: flex;
-      gap: 0.5rem;
-      padding: 0.8rem 1rem;
-      overflow-x: auto;
-    }
-
-    .tab-trigger {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      color: rgba(255, 255, 255, 0.5);
-      padding: 0.5rem 1rem;
-      border-radius: 2rem;
-      font-size: 0.75rem;
-      font-weight: 600;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: all 0.2s;
-    }
-
-    .tab-trigger.active {
-      background: var(--primary-gradient);
-      color: #ffffff;
-      border-color: transparent;
-    }
-
-    .portfolio-feed {
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
-      padding: 1rem;
-      max-height: 62vh;
-      overflow-y: auto;
-      scroll-behavior: smooth;
-    }
-
-    /* VIDEO PREVIEW CARD COMPONENT */
-    .preview-card {
-      background: #020617;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 1rem;
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .preview-card .card-title {
-      font-size: 1.15rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: #ffffff;
-      margin-bottom: 0.6rem;
-    }
-
-    /* ASPECT RATIO VIDEO CONTAINER */
-    .video-wrapper {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      background: #000000;
-      border-radius: 0.6rem;
-      overflow: hidden;
-      transition: aspect-ratio 0.3s ease;
-    }
-
-    .video-wrapper.ratio-expanded {
-      aspect-ratio: auto;
-    }
-
-    .video-wrapper video {
-      width: 100%;
-      display: block;
-    }
-
-    .video-wrapper:not(.ratio-expanded) video {
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .expand-toggle-btn {
-      position: absolute;
-      top: 0.6rem;
-      right: 0.6rem;
-      background: rgba(0, 0, 0, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #ffffff;
-      border-radius: 0.4rem;
-      padding: 0.3rem 0.5rem;
-      font-size: 0.7rem;
-      font-weight: 600;
-      cursor: pointer;
-      z-index: 5;
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-      backdrop-filter: blur(4px);
     }
 
     /* MODAL OVERLAY */
@@ -582,6 +485,11 @@
     <span>Unlock private web</span> 
     <i class="fas fa-arrow-right-to-bracket"></i>
   </button>
+
+  <button type="button" id="visitorBtn" class="visitor-btn">
+    <span>View Portfolio (Visitor)</span> 
+    <i class="fas fa-eye"></i>
+  </button>
   
   <div id="errorMsg" class="error-message" style="display: none;"></div>
   <div class="demo-hint"><i class="fas fa-shield"></i> Reymark Delagao Vault Gateway</div>
@@ -612,24 +520,6 @@
   </div>
 </div>
 
-<div id="portfolioApp" class="glass-panel private-hub">
-  <div class="portfolio-header">
-    <button type="button" class="back-hub-btn" id="backHubBtn"><i class="fas fa-arrow-left"></i> Back</button>
-    <h2 style="color: #ffffff; font-size: 1.05rem; font-weight: 700;"><i class="fas fa-briefcase"></i> My Portfolio</h2>
-  </div>
-  
-  <div class="portfolio-tabs">
-    <button type="button" class="tab-trigger active" data-filter="motion">MOTION DESIGN</button>
-    <button type="button" class="tab-trigger" data-filter="edits">MULTI-STYLE EDITS</button>
-  </div>
-
-  <div class="portfolio-feed" id="portfolioFeedContainer"></div>
-
-  <div class="private-footer">
-    <p><i class="fas fa-star"></i> Curated Works & Showcases</p>
-  </div>
-</div>
-
 <div id="modalOverlay" class="modal-overlay">
   <div class="glass-panel modal-container">
     <div class="modal-header">
@@ -646,9 +536,7 @@
   (function(){
     const loginForm = document.getElementById('loginForm');
     const mainApp = document.getElementById('mainApp');
-    const portfolioApp = document.getElementById('portfolioApp');
-    const portfolioFeedContainer = document.getElementById('portfolioFeedContainer');
-    const backHubBtn = document.getElementById('backHubBtn');
+    const visitorBtn = document.getElementById('visitorBtn');
     
     const usernameField = document.getElementById('usernameInput');
     const passwordField = document.getElementById('passwordInput');
@@ -662,8 +550,6 @@
     const modalCardsContainer = document.getElementById('modalCardsContainer');
     const closeModalBtn = document.getElementById('closeModalBtn');
     const toastAlert = document.getElementById('toastAlert');
-
-    let videoIntersectionObserver = null;
 
     const categoriesData = {
       presets: {
@@ -743,19 +629,6 @@
       }
     };
 
-    const portfolioRepo = [
-      { type: 'motion', videoSrc: '' },
-      { type: 'motion', videoSrc: '' },
-      { type: 'motion', videoSrc: '' },
-      { type: 'motion', videoSrc: '' },
-      { type: 'motion', videoSrc: '' },
-      { type: 'edits', videoSrc: 'https://res.cloudinary.com/dafz8wnkh/video/upload/New_Project_30_7D03535_p8dyo6.mp4' },
-      { type: 'edits', videoSrc: '' },
-      { type: 'edits', videoSrc: '' },
-      { type: 'edits', videoSrc: '' },
-      { type: 'edits', videoSrc: '' }
-    ];
-
     function showToast(msg) {
       toastAlert.innerText = msg;
       toastAlert.classList.add('show');
@@ -788,98 +661,14 @@
       }
     });
 
+    visitorBtn.addEventListener('click', () => {
+      window.location.href = 'portfolio.html';
+    });
+
     logoutBtn.addEventListener('click', () => {
       mainApp.style.display = 'none';
       loginForm.style.display = 'flex';
     });
-
-    backHubBtn.addEventListener('click', () => {
-      if (videoIntersectionObserver) {
-        videoIntersectionObserver.disconnect();
-      }
-      portfolioApp.style.display = 'none';
-      mainApp.style.display = 'block';
-    });
-
-    document.querySelectorAll('.tab-trigger').forEach(tab => {
-      tab.addEventListener('click', (e) => {
-        document.querySelectorAll('.tab-trigger').forEach(t => t.classList.remove('active'));
-        e.target.classList.add('active');
-        buildPortfolioFeed(e.target.getAttribute('data-filter'));
-      });
-    });
-
-    function initVideoAutoplayObserver() {
-      if (videoIntersectionObserver) {
-        videoIntersectionObserver.disconnect();
-      }
-
-      const observerOptions = {
-        root: portfolioFeedContainer,
-        threshold: 0.6
-      };
-
-      videoIntersectionObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          const video = entry.target;
-          if (entry.isIntersecting) {
-            if (video.src) {
-              video.play().catch(() => {});
-            }
-          } else {
-            video.pause();
-          }
-        });
-      }, observerOptions);
-
-      const videos = portfolioFeedContainer.querySelectorAll('video');
-      videos.forEach(v => videoIntersectionObserver.observe(v));
-    }
-
-    function buildPortfolioFeed(filterStyle) {
-      portfolioFeedContainer.innerHTML = '';
-      let cardCounter = 1;
-
-      portfolioRepo.forEach(project => {
-        if (project.type !== filterStyle) return;
-
-        const card = document.createElement('div');
-        card.className = 'preview-card';
-        
-        // REMOVED 'muted' ATTRIBUTE FOR UNMUTED AUDIO PLAYBACK
-        card.innerHTML = `
-          <div class="card-title">Preview ${cardCounter}</div>
-          <div class="video-wrapper">
-            <button type="button" class="expand-toggle-btn">
-              <i class="fas fa-expand"></i> <span>Expand Ratio</span>
-            </button>
-            <video loop playsinline src="${project.videoSrc}"></video>
-          </div>
-        `;
-
-        const videoWrapper = card.querySelector('.video-wrapper');
-        const expandBtn = card.querySelector('.expand-toggle-btn');
-        const expandIcon = expandBtn.querySelector('i');
-        const expandText = expandBtn.querySelector('span');
-
-        expandBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const isExpanded = videoWrapper.classList.toggle('ratio-expanded');
-          if (isExpanded) {
-            expandIcon.className = 'fas fa-compress';
-            expandText.innerText = 'Close Ratio';
-          } else {
-            expandIcon.className = 'fas fa-expand';
-            expandText.innerText = 'Expand Ratio';
-          }
-        });
-
-        portfolioFeedContainer.appendChild(card);
-        cardCounter++;
-      });
-
-      initVideoAutoplayObserver();
-    }
 
     function buildCategories(){
       const categoriesList = [
@@ -900,12 +689,7 @@
         
         tile.addEventListener('click', () => {
           if (cat.id === 'portfolio') {
-            mainApp.style.display = 'none';
-            portfolioApp.style.display = 'block';
-            document.querySelectorAll('.tab-trigger').forEach(t => t.classList.remove('active'));
-            const initialTab = document.querySelector('.tab-trigger[data-filter="motion"]');
-            if (initialTab) initialTab.classList.add('active');
-            buildPortfolioFeed('motion');
+            window.location.href = 'portfolio.html';
           } else {
             openModal(cat.id);
           }
